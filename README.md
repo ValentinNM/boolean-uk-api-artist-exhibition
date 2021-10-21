@@ -29,7 +29,7 @@ The employees of the Artist Exhibition Service need to be able to do the followi
 [DELETE] `/tickets/:id`
 
 - view the ticket sales of an exhibition
-[GET] `/exhibitions/tickets`
+[GET] `/exhibitions/:id/tickets`
 
 - view the artists with an exhibit at an exhibition
 [GET] `/exhibtions/:id/artist`

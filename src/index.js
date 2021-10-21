@@ -6,6 +6,9 @@ const morgan = require("morgan")
 
 const app = express()
 
+
+const artistsRouter = require("./resources/artists/router");
+
 /* SETUP MIDDLEWARE */
 
 app.disable("x-powered-by")
@@ -16,6 +19,8 @@ app.use(express.urlencoded({ extended: true }))
 app.use(morgan("dev"))
 
 /* SETUP ROUTES */
+
+app.use("/artists", artistsRouter);
 
 app.get("*", (req, res) => {
   res.json({ ok: true })
