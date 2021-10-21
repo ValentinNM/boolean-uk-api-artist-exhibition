@@ -8,6 +8,7 @@ const app = express()
 
 
 const artistsRouter = require("./resources/artists/router");
+const exhibitionsRouter = require("./resources/exhibitions/router")
 
 /* SETUP MIDDLEWARE */
 
@@ -21,6 +22,7 @@ app.use(morgan("dev"))
 /* SETUP ROUTES */
 
 app.use("/artists", artistsRouter);
+app.use("/exhibitions", exhibitionsRouter);
 
 app.get("*", (req, res) => {
   res.json({ ok: true })
