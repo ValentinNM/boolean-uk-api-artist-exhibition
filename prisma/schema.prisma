@@ -17,3 +17,34 @@ model Artist {
   firstName   String
   lastName    String
 }
+
+//START - one to many
+model Exhibition {
+  id          Int @id @default(autoincrement())
+  name        String
+  date        DateTime
+  address     Address  @relation(fields: [addressId], references:[id])
+  addressId   Int
+  tickets     Ticket[]
+}
+
+model Address { 
+  id          Int @id @default(autoincrement())
+  mainAddress String
+  city        String
+  postcode    String @db.VarChar(8)
+  exhibitons  Exhibition[]
+}
+//END - one to many
+
+
+//Start 1-n to Exhibitions
+model Ticket{
+  id            Int @id @default(autoincrement())
+  price         Float
+  email         String @unique
+  exhibition    Exhibition @relation(fields: [exhibitionId], references: [id])
+  exhibitionId  Int
+}
+
+// Finish 1-n to Exhibitions
