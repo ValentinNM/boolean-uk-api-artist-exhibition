@@ -44,7 +44,7 @@ model Ticket {
   id           Int        @id @default(autoincrement())
   price        Float
   email        String     @unique
-  exhibitions  Exhibition @relation(fields: [exhibitionId], references: [id])
+  exhibition   Exhibition @relation(fields: [exhibitionId], references: [id])
   exhibitionId Int
 }
 
