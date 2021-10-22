@@ -1,3 +1,4 @@
+const { address } = require("../../utils/database");
 const prisma = require("../../utils/database")
 
 async function postExhibitionWithAddress(req, res){ 
@@ -35,6 +36,23 @@ async function postExhibitionWithAddress(req, res){
     }
 }
 
+async function getExhibitions(req, res) {
+
+    try{    
+        const allExhibtions = await prisma.exhibition.findMany({
+            // include: {
+            //     address : true, 
+            //     artists : true,
+            // }
+        })
+        res.json({ exhibitions: allExhibtions})
+    }catch(error){
+
+        res.status(500).json({error: error.message})
+    }
+}
+
 module.exports = { 
-    postExhibitionWithAddress
+    postExhibitionWithAddress,
+    getExhibitions
 }
