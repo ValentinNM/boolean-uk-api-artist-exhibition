@@ -2,21 +2,20 @@ const prisma = require("../../utils/database")
 
 async function postExhibitionWithAddress(req, res){ 
 
-    const address = req.body;
-
-    const {mainAddress, city, postcode ,exhibition} = address;
+    const address = req.body;  
 
     const { name, date } = exhibition;
 
     console.log("address: ", address)
     console.log("exhibition: ", exhibition)
 
+    delete address.exhibition   // deleting the exhibition key from address object to be used for creating newExhibition
+    console.log("addressNoExhibition: ", address);
+
     try{
         const newExhibition = await prisma.address.create({
             data : {
-                mainAddress,
-                city,
-                postcode,
+             ...address,
                 exhibitons: { 
                     create : [{
                         name,
