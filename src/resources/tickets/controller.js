@@ -1,25 +1,21 @@
+const { exhibition } = require("../../utils/database");
 const prisma = require("../../utils/database")
 
-async function addTickets(req, res){
+async function addTicket(req, res){
 
     console.log("body: ", req.body)
 
-    const {email, price, exhibition} = req.body;
-
-    const {name ,date} = exhibition
+    const ticket = req.body;
+    
+    const {email, price, exhibitionId} = ticket
 
     try {
 
         const newTicket = await prisma.ticket.create({
             data: { 
-                email,
-                price,
-                exhibition : {   // ??exhibitionId si required
-                    create :[{   // to be looked into
-                        name,
-                        date: new Date(date)
-                    }]
-                }
+                email, 
+                price, 
+                exhibitionId
             },
             include : {
                 exhibition : true
@@ -33,5 +29,5 @@ async function addTickets(req, res){
 }
 
 module.exports = {
-    addTickets
+    addTicket
 }

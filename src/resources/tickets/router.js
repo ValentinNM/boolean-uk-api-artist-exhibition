@@ -2,8 +2,8 @@ const express = require("express");
 
 const router = express.Router();
 
-const { addTickets } = require("./controller");
+const { addTicket } = require("./controller");
 
-router.post("/", addTickets)
+router.post("/", addTicket)
 
 module.exports = router;
