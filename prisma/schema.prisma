@@ -12,39 +12,52 @@ generator client {
 }
 
 model Artist {
-  // id        @id  @default(autoincrement())
-  id          Int  @id @default(autoincrement())
-  firstName   String
-  lastName    String
+  id                   Int                    @id @default(autoincrement())
+  firstName            String
+  lastName             String
+  exhibitions          EhxibitionsOnArtists[]
 }
 
 //START - one to many
 model Exhibition {
-  id          Int @id @default(autoincrement())
-  name        String
-  date        DateTime
-  address     Address  @relation(fields: [addressId], references:[id])
-  addressId   Int
-  tickets     Ticket[]
+  id                   Int                    @id @default(autoincrement())
+  name                 String
+  date                 DateTime
+  address              Address                @relation(fields: [addressId], references: [id])
+  addressId            Int
+  tickets              Ticket[]
+  artists              EhxibitionsOnArtists[]
 }
 
-model Address { 
-  id          Int @id @default(autoincrement())
+model Address {
+  id          Int          @id @default(autoincrement())
   mainAddress String
   city        String
-  postcode    String @db.VarChar(8)
+  postcode    String       @db.VarChar(8)
   exhibitons  Exhibition[]
 }
+
 //END - one to many
 
-
 //Start 1-n to Exhibitions
-model Ticket{
-  id            Int @id @default(autoincrement())
-  price         Float
-  email         String @unique
-  exhibition    Exhibition @relation(fields: [exhibitionId], references: [id])
-  exhibitionId  Int
+model Ticket {
+  id           Int        @id @default(autoincrement())
+  price        Float
+  email        String     @unique
+  exhibitions  Exhibition @relation(fields: [exhibitionId], references: [id])
+  exhibitionId Int
 }
 
 // Finish 1-n to Exhibitions
+
+// START many to many
+model EhxibitionsOnArtists {
+  exhibition   Exhibition @relation(fields: [exhibitionId], references: [id])
+  exhibitionId Int
+  artist       Artist     @relation(fields: [artistId], references: [id])
+  artistId     Int
+
+  @@id([exhibitionId, artistId])
+}
+
+// END many to many
