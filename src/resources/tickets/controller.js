@@ -28,6 +28,28 @@ async function addTicket(req, res){
     }
 }
 
+async function deleteTicket(req, res) { 
+
+    const id = req.params.id
+
+    console.log("id: ", id);
+    
+    try{
+
+        const deleteOneTicket = await prisma.exhibition.delete({
+            where : { 
+                id : parseInt(id)
+            }
+        })
+
+        res.json({ deleted: true }, deleteOneTicket)
+    }catch(error){
+
+        res.status(500).json({error: error.message})
+    }
+}
+
 module.exports = {
-    addTicket
+    addTicket,
+    deleteTicket
 }
